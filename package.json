@@ -1,0 +1,28 @@
+{
+  "name": "linkedin-thought-leadership-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI-powered LinkedIn automation system for B2B thought leadership",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "test": "vitest",
+    "deploy:production": "wrangler deploy --env production",
+    "deploy:development": "wrangler deploy --env development"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.8.19",
+    "typescript": "^5.5.2",
+    "vitest": "~3.2.0",
+    "wrangler": "^4.24.0"
+  },
+  "keywords": [
+    "linkedin",
+    "automation",
+    "thought-leadership",
+    "cloudflare-workers",
+    "ai"
+  ],
+  "author": "Abdul Rahim",
+  "license": "MIT"
+}

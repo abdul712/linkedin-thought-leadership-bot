@@ -1,0 +1,78 @@
+name = "linkedin-bot"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Development environment
+[env.development]
+name = "linkedin-bot-dev"
+
+[[env.development.kv_namespaces]]
+binding = "LINKEDIN_SESSIONS"
+# Run: wrangler kv:namespace create "LINKEDIN_SESSIONS" --preview
+# Replace with your actual ID
+id = "YOUR_DEV_SESSIONS_KV_ID"
+
+[[env.development.kv_namespaces]]
+binding = "CONTENT_CACHE"
+# Run: wrangler kv:namespace create "CONTENT_CACHE" --preview
+id = "YOUR_DEV_CONTENT_KV_ID"
+
+[[env.development.kv_namespaces]]
+binding = "ANALYTICS_DATA"
+# Run: wrangler kv:namespace create "ANALYTICS_DATA" --preview
+id = "YOUR_DEV_ANALYTICS_KV_ID"
+
+[[env.development.d1_databases]]
+binding = "LEADS_DB"
+database_name = "linkedin-leads-dev"
+# Run: wrangler d1 create linkedin-leads-dev
+database_id = "YOUR_DEV_DB_ID"
+
+[env.development.vars]
+AI_PROVIDER = "anthropic"
+MAX_CONNECTIONS_PER_DAY = "10"
+MAX_POSTS_PER_WEEK = "2"
+MAX_DAILY_POSTS = "1"
+ENVIRONMENT = "development"
+WORKER_URL = "https://linkedin-bot-dev.YOUR_SUBDOMAIN.workers.dev"
+
+# Production environment
+[env.production]
+name = "linkedin-bot-prod"
+
+[[env.production.kv_namespaces]]
+binding = "LINKEDIN_SESSIONS"
+# Run: wrangler kv:namespace create "LINKEDIN_SESSIONS"
+id = "YOUR_PROD_SESSIONS_KV_ID"
+
+[[env.production.kv_namespaces]]
+binding = "CONTENT_CACHE"
+# Run: wrangler kv:namespace create "CONTENT_CACHE"
+id = "YOUR_PROD_CONTENT_KV_ID"
+
+[[env.production.kv_namespaces]]
+binding = "ANALYTICS_DATA"
+# Run: wrangler kv:namespace create "ANALYTICS_DATA"
+id = "YOUR_PROD_ANALYTICS_KV_ID"
+
+[[env.production.d1_databases]]
+binding = "LEADS_DB"
+database_name = "linkedin-leads-production"
+# Run: wrangler d1 create linkedin-leads-production
+database_id = "YOUR_PROD_DB_ID"
+
+[env.production.vars]
+AI_PROVIDER = "anthropic"
+MAX_CONNECTIONS_PER_DAY = "50"
+MAX_POSTS_PER_WEEK = "5"
+MAX_DAILY_POSTS = "2"
+ENVIRONMENT = "production"
+WORKER_URL = "https://linkedin-bot.YOUR_SUBDOMAIN.workers.dev"
+
+# Cron triggers for automation
+[[env.production.triggers]]
+crons = [
+  "0 9,13,17 * * 1-5",  # Content strategy: 9 AM, 1 PM, 5 PM weekdays
+  "0 10,15 * * 1-5",    # Engagement rounds: 10 AM, 3 PM weekdays
+  "0 19 * * 1-5"        # Networking: 7 PM weekdays
+]
