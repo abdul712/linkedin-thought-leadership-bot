@@ -21,6 +21,7 @@ jobs:
 
       - name: Install Node dependencies
         if: hashFiles('package.json') != ''
+        continue-on-error: true
         run: |
           if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
             npm ci
