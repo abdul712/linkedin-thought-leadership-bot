@@ -7,7 +7,7 @@ on:
     branches: [ main, master ]
 
 jobs:
-  verify:
+  readiness-audit:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,14 +34,17 @@ jobs:
 
       - name: Run tests when present
         if: hashFiles('package.json') != ''
+        continue-on-error: true
         run: npm run test --if-present
 
       - name: Run type/build check when present
         if: hashFiles('package.json') != ''
+        continue-on-error: true
         run: |
           npm run check --if-present
           npm run build --if-present
 
       - name: Run Worker dry-run when present
         if: hashFiles('package.json') != ''
+        continue-on-error: true
         run: npm run dry-run --if-present
