@@ -8,7 +8,8 @@
     "dev": "wrangler dev",
     "test": "vitest",
     "deploy:production": "wrangler deploy --env production",
-    "deploy:development": "wrangler deploy --env development"
+    "deploy:development": "wrangler deploy --env development",
+    "dry-run": "wrangler deploy --dry-run"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.8.19",
